@@ -1,0 +1,309 @@
+ex1
+______________________________________________________________________________________________________________
+<?php
+$etudiant = [
+    'nom' => 'Doe',
+    'prénom' => 'John',
+    'matricule' => '123456'
+];
+
+foreach ($etudiant as $cle => $valeur) {
+    echo ucfirst($cle) . ": " . $valeur . "<br>";
+}
+?>
+______________________________________________________________________________________________________________
+ex2
+
+<?php
+$etudiant['note'] = 15; 
+$etudiant['note'] = 18; 
+
+echo "Note mise à jour: " . $etudiant['note'];
+?>
+
+______________________________________________________________________________________________________________
+ex3 
+$produits = [
+    'Produit A' => 20,
+    'Produit B' => 35,
+    'Produit C' => 50
+];
+
+foreach ($produits as $nom => $prix) {
+    echo $nom . " coûte " . $prix . "€<br>";
+}
+?>
+______________________________________________________________________________________________________________
+ex4
+<?php
+$scores = [
+    'Alice' => 12,
+    'Bob' => 14,
+    'Charlie' => 16,
+    'Diana' => 18,
+    'Eve' => 10
+];
+
+$moyenne = array_sum($scores) / count($scores);
+echo "La moyenne des scores est: " . $moyenne;
+?>
+______________________________________________________________________________________________________________
+ex5
+<?php
+$pays = [
+    'France' => 67000000,
+    'Allemagne' => 83000000,
+    'Espagne' => 47000000
+];
+
+arsort($pays); // Tri en ordre décroissant
+
+foreach ($pays as $nom => $population) {
+    echo $nom . " a une population de " . $population . "<br>";
+}
+?>
+______________________________________________________________________________________________________________
+ex6
+HTML :
+<form method="post">
+    Nom: <input type="text" name="nom"><br>
+    Âge: <input type="number" name="age"><br>
+    <input type="submit" value="Envoyer">
+</form>
+
+php:
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nom = $_POST['nom'];
+    $age = $_POST['age'];
+    echo "Bienvenue, $nom, vous avez $age ans !";
+}
+?>
+______________________________________________________________________________________________________________
+ex7 
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nom = $_POST['nom'];
+    $age = $_POST['age'];
+
+    if (filter_var($age, FILTER_VALIDATE_INT) && $age > 0) {
+        echo "Bienvenue, $nom, vous avez $age ans !";
+    } else {
+        echo "Erreur : Veuillez entrer un âge valide.";
+    }
+}
+?>
+______________________________________________________________________________________________________________
+ex8
+html :
+<form method="post">
+    Couleur préférée:
+    <select name="couleur">
+        <option value="rouge">Rouge</option>
+        <option value="vert">Vert</option>
+        <option value="bleu">Bleu</option>
+    </select>
+    <input type="submit" value="Choisir">
+</form>
+php :
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $couleur = $_POST['couleur'];
+    echo "Votre couleur préférée est : $couleur.";
+}
+?>	
+______________________________________________________________________________________________________________
+ex9
+html : 
+<form method="get">
+    Nombre 1: <input type="number" name="nombre1"><br>
+    Nombre 2: <input type="number" name="nombre2"><br>
+    <input type="submit" value="Calculer">
+</form>
+___________________________________________________________________________________________________________
+ex10
+html : <form method="post">
+    Type de compte:
+    <select name="type">
+        <option value="administrateur">Administrateur</option>
+        <option value="utilisateur">Utilisateur</option>
+    </select>
+    <input type="submit" value="Envoyer">
+</form>
+php : 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $type = $_POST['type'];
+    if ($type === 'administrateur') {
+        echo "Bienvenue, administrateur !";
+    } else {
+        echo "Bienvenue, utilisateur simple !";
+    }
+}
+?>
+
+=======================================FROMULAIRE 2 ==============================================================
+ex1
+<?php
+$employes = [
+    ['nom' => 'Alice', 'poste' => 'Développeur', 'salaire' => 4000],
+    ['nom' => 'Bob', 'poste' => 'Designer', 'salaire' => 3500],
+    ['nom' => 'Charlie', 'poste' => 'Manager', 'salaire' => 5000],
+    ['nom' => 'Diana', 'poste' => 'RH', 'salaire' => 3000],
+    ['nom' => 'Eve', 'poste' => 'Stagiaire', 'salaire' => 1500]
+];
+
+function calculerSalaireMoyen($employes) {
+    $somme = 0;
+    foreach ($employes as $employe) {
+        $somme += $employe['salaire'];
+    }
+    return $somme / count($employes);
+}
+
+echo "Le salaire moyen est : " . calculerSalaireMoyen($employes) . "€";
+?>
+___________________________________________________________________________________________________--
+ex2
+<form method="post">
+    Nom de l'employé : <input type="text" name="nom">
+    <input type="submit" value="Rechercher">
+</form>
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nomRecherche = $_POST['nom'];
+    $trouve = false;
+
+    foreach ($employes as $employe) {
+        if (strtolower($employe['nom']) === strtolower($nomRecherche)) {
+            echo "Employé trouvé : " . implode(", ", $employe);
+            $trouve = true;
+            break;
+        }
+    }
+    if (!$trouve) {
+        echo "Aucun employé trouvé avec le nom : $nomRecherche";
+    }
+}
+?>
+___________________________________________________________________________________________________--
+ex3
+<?php
+$utilisateurs = [
+    ['email' => 'alice@example.com', 'password' => '1234'],
+    ['email' => 'bob@example.com', 'password' => '5678']
+];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $authentifie = false;
+
+    foreach ($utilisateurs as $utilisateur) {
+        if ($utilisateur['email'] === $email && $utilisateur['password'] === $password) {
+            echo "Bienvenue, $email !";
+            $authentifie = true;
+            break;
+        }
+    }
+    if (!$authentifie) {
+        echo "Informations incorrectes.";
+    }
+}
+?>
+_______________________________________________________________________________________________
+ex4
+<?php
+$panier = [
+    ['nom' => 'Produit A', 'quantité' => 2, 'prix' => 10],
+    ['nom' => 'Produit B', 'quantité' => 1, 'prix' => 20],
+    ['nom' => 'Produit C', 'quantité' => 3, 'prix' => 5]
+];
+
+$total = 0;
+foreach ($panier as $produit) {
+    $total += $produit['quantité'] * $produit['prix'];
+}
+echo "Le total du panier est : $total €";
+?>
+
+___________________________________________________________________________________________________
+ex5
+<?php
+$commentaires = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $commentaire = $_POST['commentaire'];
+    $commentaires[] = ['texte' => $commentaire, 'timestamp' => date('Y-m-d H:i:s')];
+}
+
+foreach ($commentaires as $com) {
+    echo "[" . $com['timestamp'] . "] " . $com['texte'] . "<br>";
+}
+?>
+_____________________________________________________________________________________________________________
+ex6
+<?php
+$villes = [
+    'Paris' => 18,
+    'Londres' => 12,
+    'Madrid' => 22,
+    'Berlin' => 15
+];
+
+$villeMax = array_keys($villes, max($villes))[0];
+echo "La ville la plus chaude est $villeMax avec " . $villes[$villeMax] . "°C.";
+?>
+____________________________________________________________________________________________________________________
+ex7
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fichier'])) {
+    $fichier = fopen($_FILES['fichier']['tmp_name'], 'r');
+    echo "<table border='1'><tr><th>Nom</th><th>Prix</th><th>Quantité</th></tr>";
+    while (($data = fgetcsv($fichier)) !== FALSE) {
+        echo "<tr><td>{$data[0]}</td><td>{$data[1]}</td><td>{$data[2]}</td></tr>";
+    }
+    fclose($fichier);
+    echo "</table>";
+}
+?>
+____________________________________________________________________________________________________________________
+ex8 
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $produits = $_POST['produits'] ?? [];
+    $total = array_sum($produits);
+    echo "Produits sélectionnés : " . implode(", ", array_keys($produits));
+    echo "Total : $total €";
+}
+?>
+____________________________________________________________________________________________________________________
+ex9 
+<?php
+$etudiants = [
+    'Alice' => ['math' => 12, 'anglais' => 15],
+    'Bob' => ['math' => 14, 'anglais' => 10]
+];
+
+foreach ($etudiants as $nom => $notes) {
+    $moyenne = array_sum($notes) / count($notes);
+    echo "$nom a une moyenne de $moyenne<br>";
+}
+?>
+____________________________________________________________________________________________________________________
+ex10 
+<?php
+$utilisateurs = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'];
+    $nom = $_POST['nom'];
+
+    if ($action === 'ajouter') {
+        $utilisateurs[] = $nom;
+    } elseif ($action === 'supprimer') {
+        $key = array_search($nom, $utilisateurs);
+        if ($key !== false) unset($utilisateurs[$key]);
+    }
+}
+?>
+
